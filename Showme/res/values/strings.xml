@@ -4,5 +4,6 @@
     <string name="app_name">Showme</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="click_me_start">Clickme to read the information </string>
 
 </resources>
