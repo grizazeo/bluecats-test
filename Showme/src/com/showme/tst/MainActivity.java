@@ -52,15 +52,25 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		Button button1= (Button)findViewById(R.id.button1);
+		//Button button1= (Button)findViewById(R.id.button1);
+		//Button button2= (Button)findViewById(R.id.button2);
+		
+		
+		
 		mBeacons = Collections.synchronizedList(new ArrayList<BCBeacon>());
 		mBeaconsList = (ListView) findViewById(R.id.list_beacons_sniffer);
 		mAdapterBeacons = new BeaconsSnifferAdapter(this, mBeacons);
 		mBeaconsList.setAdapter(mAdapterBeacons);
 
-		
 
 		
+	}
+	
+	public void startImageActivity(View button){
+		
+		Intent intentImageView = new Intent(this,BlackImage.class);
+		
+		startActivity(intentImageView);
 	}
 	
 	@SuppressLint("ShowToast") public void startRecive(View button){
@@ -180,10 +190,10 @@ public class MainActivity extends Activity {
 							BCBeacon beaconToUpdate = mBeacons.get(mBeacons.indexOf(beacon));
 							beaconToUpdate.setRSSI(beacon.getRSSI());
 							beaconToUpdate.setProximity(beacon.getProximity());
-							System.out.println("---------paso");
+							
 						} else {
 							mBeacons.add(beacon);
-							System.out.println("---------paso222222");
+							
 						}
 					}
 

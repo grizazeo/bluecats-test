@@ -56,8 +56,6 @@ public class BeaconsSnifferAdapter extends BaseAdapter {
 			holder.txtRSSI = (TextView)convertView.findViewById(R.id.rssi);
 			holder.txtCategories = (TextView)convertView.findViewById(R.id.categories);
 			holder.txtProximity = (TextView)convertView.findViewById(R.id.proximity);
-			
-
 			convertView.setTag(holder);
 		} else {
 			holder = (BeaconsViewHolder)convertView.getTag();
@@ -80,14 +78,13 @@ public class BeaconsSnifferAdapter extends BaseAdapter {
 		
 		if(beacon.getProximity().toString()=="BC_PROXIMITY_IMMEDIATE" && categories=="black"){
 			
-	//		Intent beaconIntent = new Intent(BeaconsSnifferAdapter.this, BlackImage.class);
-		//	Bundle beaconBundle = new Bundle();
-			//beaconBundle.putParcelable(BlueCatsSDK.EXTRA_BEACON, mAdapterBeaconsImmediate.getItem(position));
-			//beaconIntent.putExtras(beaconBundle);
-			//(beaconIntent);
+			Intent beaconIntent = new Intent(null, BlackImage.class);
+			Activity.class.cast(beaconIntent);
 			
 		}
-		else if (categories=="es el negro") Toast.makeText(null, "Start transmition", Toast.LENGTH_LONG).show();
+		else{
+			System.out.println("######################### fuuuuu");
+		}
 		
 		int colourPos = position % mRowColours.length;
 		convertView.setBackgroundColor(mRowColours[colourPos]);
