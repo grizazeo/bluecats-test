@@ -46,6 +46,9 @@ public class MainActivity extends Activity {
 	private ListView mBeaconsList;
 	private List<BCBeacon> mBeacons;
 	private BeaconsSnifferAdapter mAdapterBeacons;
+	public static Boolean BlackI = false;
+	public static Boolean WhiteI = false;
+	public static Boolean BlueI =  false;
 
 
 	@Override
@@ -53,27 +56,42 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		//Button button1= (Button)findViewById(R.id.button1);
-		//Button button2= (Button)findViewById(R.id.button2);
-		
+		Button button2= (Button)findViewById(R.id.button2);
+		button2.setVisibility(View.GONE);
 		
 		
 		mBeacons = Collections.synchronizedList(new ArrayList<BCBeacon>());
 		mBeaconsList = (ListView) findViewById(R.id.list_beacons_sniffer);
 		mAdapterBeacons = new BeaconsSnifferAdapter(this, mBeacons);
 		mBeaconsList.setAdapter(mAdapterBeacons);
+	
+	}
+	
+	
+	@Override
+	protected void onResume() {
+	    super.onResume();
+	    WhiteI=false;
+	    BlueI=false;
+	    BlackI=false;
+	   // startRecive((Button)findViewById(R.id.button1));	
+	    //BCMicroLocationManager.getInstance();
+	}
+	
+	@Override
+	protected void onPause() {
+	    super.onPause();
 
-
-		
+	    //BCMicroLocationManager.getInstance();
 	}
 	
 	public void startImageActivity(View button){
 		
 		Intent intentImageView = new Intent(this,BlackImage.class);
-		
 		startActivity(intentImageView);
 	}
 	
-	@SuppressLint("ShowToast") public void startRecive(View button){
+	public void startRecive(View button){
 		boolean hasAdapters=true;
 		bAdapter = BluetoothAdapter.getDefaultAdapter();
 		locationManager = (LocationManager)getSystemService(LOCATION_SERVICE);
@@ -101,6 +119,7 @@ public class MainActivity extends Activity {
 			BlueCatsSDK.startPurringWithAppToken(getApplicationContext(), "e11e46df-4882-450b-9e1e-94406b50bbc4");
 			Toast.makeText(this, "Start transmition", 10).show();
 			button.setVisibility(View.GONE);
+			
 			
 			BCMicroLocationManager.getInstance().startUpdatingMicroLocation(mMicroLocationManagerCallback);
 		
@@ -191,6 +210,7 @@ public class MainActivity extends Activity {
 							beaconToUpdate.setRSSI(beacon.getRSSI());
 							beaconToUpdate.setProximity(beacon.getProximity());
 							
+							
 						} else {
 							mBeacons.add(beacon);
 							
@@ -219,6 +239,36 @@ public class MainActivity extends Activity {
 									BCBeacon beaconToUpdate = mBeacons.get(mBeacons.indexOf(beacon));
 									beaconToUpdate.setRSSI(beacon.getRSSI());
 									beaconToUpdate.setProximity(beacon.getProximity());
+									String categories = "";
+									for (int i = 0; i < beacon.getCategories().length; i++) {
+										if (i > 0) {
+											categories += ", ";
+										}
+										categories += beacon.getCategories()[i].getName();
+									}
+									
+									//hacemos el case para los tres beacons, en este caso solo para el negro y el blanco
+								
+									System.out.println("categories=>>>>>>"+categories);
+									if(categories.contains("white") && (beacon.getProximity().toString()=="BC_PROXIMITY_IMMEDIATE")){
+										
+										if(WhiteI == false) {
+											Intent whiteIntent=new Intent(MainActivity.this,WhiteImage.class);
+											startActivity(whiteIntent);
+											WhiteI=true;
+										}
+									}
+									else if(categories.contains("black")&& (beacon.getProximity().toString()=="BC_PROXIMITY_IMMEDIATE")){
+										Intent blackIntent=new Intent(MainActivity.this,BlackImage.class);
+										startActivity(blackIntent);
+										BlackI=true;
+									}
+									else if(categories.contains("blue")&& (beacon.getProximity().toString()=="BC_PROXIMITY_IMMEDIATE")){
+										Intent blueIntent=new Intent(MainActivity.this,BlueImage.class);
+										startActivity(blueIntent);
+										BlueI=true;
+									}
+									
 								} else {
 									mBeacons.add(beacon);
 								}
@@ -228,6 +278,7 @@ public class MainActivity extends Activity {
 						mAdapterBeacons.notifyDataSetChanged();
 					}
 				}
+				
 			});
 		}
 
@@ -240,6 +291,8 @@ public class MainActivity extends Activity {
 		public void onDidEndVisitForBeacon(BCBeaconVisit beaconVisit, BCBeacon beacon) {
 			
 		}
+		
 	};
+
 
 }

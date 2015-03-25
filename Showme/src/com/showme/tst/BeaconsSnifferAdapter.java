@@ -73,7 +73,7 @@ public class BeaconsSnifferAdapter extends BaseAdapter {
 		}
 		holder.txtCategories.setText(categories);
 		holder.txtProximity.setText(beacon.getProximity().toString());
-		
+	/*	
 		System.out.println("soy yoooooo---"+categories);
 		
 		if(beacon.getProximity().toString()=="BC_PROXIMITY_IMMEDIATE" && categories=="black"){
@@ -85,6 +85,7 @@ public class BeaconsSnifferAdapter extends BaseAdapter {
 		else{
 			System.out.println("######################### fuuuuu");
 		}
+		*/
 		
 		int colourPos = position % mRowColours.length;
 		convertView.setBackgroundColor(mRowColours[colourPos]);

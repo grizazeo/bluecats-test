@@ -41,6 +41,35 @@
             android:value="com.showme.tst.MainActivity" />
             
         </activity>
+        <activity
+            android:name=".WhiteImage"
+            android:label="@string/white_image" 
+            android:parentActivityName="com.showme.tst.MainActivity" >
+            <intent-filter>
+                    <action android:name="android.intent.action.White" />
+            </intent-filter>
+            
+        <!-- Parent activity meta-data to support 4.0 and lower -->
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="com.showme.tst.MainActivity" />
+            
+        </activity>
+        <activity
+            android:name=".BlueImage"
+            android:label="@string/blue_image" 
+            android:parentActivityName="com.showme.tst.MainActivity" >
+            <intent-filter>
+                    <action android:name="android.intent.action.Blue" />
+            </intent-filter>
+            
+        <!-- Parent activity meta-data to support 4.0 and lower -->
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="com.showme.tst.MainActivity" />
+            
+        </activity>
+        
     <service android:name="com.bluecats.sdk.BlueCatsSDKService" />
 <receiver android:name="com.bluecats.sdk.BlueCatsSDKServiceReceiver" >
     <intent-filter>

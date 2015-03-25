@@ -16,10 +16,21 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
-    <style name="BackGroundImageView">
+    <style name="BackGroundImageViewBlack">
     	<item name="android:alpha">0.5</item>
    	    <item name="android:scaleType">fitXY</item>
-    	<item name="android:src">@drawable/background</item>
+    	<item name="android:src">@drawable/background_black</item>
+	</style>
+	<style name="BackGroundImageViewWhite">
+    	<item name="android:alpha">0.5</item>
+   	    <item name="android:scaleType">fitXY</item>
+    	<item name="android:src">@drawable/background_white</item>
+	</style>
+	
+	<style name="BackGroundImageViewBlue">
+    	<item name="android:alpha">0.5</item>
+   	    <item name="android:scaleType">fitXY</item>
+    	<item name="android:src">@drawable/background_blue</item>
 	</style>
 
 </resources>
